@@ -27,7 +27,7 @@ ensembl = useMart(host='www.ensembl.org',biomart='ENSEMBL_MART_ENSEMBL',dataset=
 addMedSD <- function(dataframe) {   # Add median and standard dev. columns at end of dataframe
   median <- apply(dataframe,1,median)
   sd <- apply(dataframe,1,sd)
-  return(data.frame(dataframe,median,sd))  
+  return(data.frame(dataframe,median,sd))
 }
 sortByMed <- function(dataframe) {  # Reorder the dataframe by the value in the column 'median'
   order <- order(dataframe$median,decreasing=TRUE)
@@ -91,7 +91,8 @@ for (sampleNumber in 1:length(TPMdata)) {
   order <- order(currentDataframe[1], decreasing=TRUE)
   sampleTranscriptomeList[[sampleNumber]] <- data.frame(currentDataframe[order,],row.names=row.names(currentDataframe)[order])
 }
-names(sampleTranscriptomeList) <- sampleNames
+#names(sampleTranscriptomeList) <- sampleNames
+names(sampleTranscriptomeList) <- names(TPMdata)
 
 ### Add references to a list
 references <- convertIDs(references)
@@ -124,7 +125,7 @@ names(transcriptomeList)
 specifiedEnd <- 10000
 for (elementNumber in 1:length(transcriptomeList)) {
   currentDatafame <- transcriptomeList[[elementNumber]]
-  #selectedRows <- currentDatafame[,1] > 1 
+  #selectedRows <- currentDatafame[,1] > 1
   selectedRows <- 1:specifiedEnd
   transcriptomeList[[elementNumber]] <- data.frame(currentDatafame[1][selectedRows,],row.names=row.names(currentDatafame)[selectedRows])
 }
@@ -204,7 +205,7 @@ heatmap.2(comparisonMatrix,
           density.info="none",  # turns off density plot inside color legend
           notecex=0.7,
           trace="none",         # turns off trace lines inside the heat map
-          col=my_palette,       # use on color palette defined earlier 
+          col=my_palette,       # use on color palette defined earlier
           distfun=dist,
           margins =c(12,12),     # widens margins around plot
           breaks=col_breaks,    # enable color transition at specified limits
@@ -226,12 +227,12 @@ setwd("z:/Uthra/HT paper/Bioinformatics figures/Spearman heatmaps/")
 
 filename <- "heatmap-10k-reordered-recolored-min50"
 
-png(filename=paste0(filename,".png"), 
+png(filename=paste0(filename,".png"),
     type="cairo",
-    units="in", 
-    width=14, 
-    height=10, 
-    pointsize=12, 
+    units="in",
+    width=14,
+    height=10,
+    pointsize=12,
     res=400)
 heatmap.2(comparisonMatrix,
           main = title, # heat map title
@@ -240,7 +241,7 @@ heatmap.2(comparisonMatrix,
           density.info="none",  # turns off density plot inside color legend
           notecex=0.7,
           trace="none",         # turns off trace lines inside the heat map
-          col=my_palette,       # use on color palette defined earlier 
+          col=my_palette,       # use on color palette defined earlier
           distfun=dist,
           margins =c(12,12),     # widens margins around plot
           breaks=col_breaks,    # enable color transition at specified limits
@@ -252,12 +253,12 @@ heatmap.2(comparisonMatrix,
 dev.off()
 
 
-tiff(filename=paste0(filename,".tiff"), 
+tiff(filename=paste0(filename,".tiff"),
     type="cairo",
-    units="in", 
-    width=14, 
-    height=10, 
-    pointsize=12, 
+    units="in",
+    width=14,
+    height=10,
+    pointsize=12,
     res=300)
 heatmap.2(comparisonMatrix,
           main = title, # heat map title
@@ -266,7 +267,7 @@ heatmap.2(comparisonMatrix,
           density.info="none",  # turns off density plot inside color legend
           notecex=0.6,
           trace="none",         # turns off trace lines inside the heat map
-          col=my_palette,       # use on color palette defined earlier 
+          col=my_palette,       # use on color palette defined earlier
           distfun=dist,
           margins =c(12,12),     # widens margins around plot
           breaks=col_breaks,    # enable color transition at specified limits
